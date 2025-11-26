@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query ,ParseIntPipe,ValidationPipe } from '@nestjs/common';
 import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -17,13 +18,13 @@ export class UsersController {
     }
 
     @Get(':id') // get params from get request
-    findOne(@Param('id') id: string) {
-        return this.userService.findOne(+id)
+    findOne(@Param('id',ParseIntPipe) id: number) {
+        return this.userService.findOne(id)
     }
  
     @Post()  // post request get body of it and create
-    createUser(@Body() user: {}) {
-        return user
+    createUser(@Body(ValidationPipe) user:CreateUserDto) {
+        return this.userService.createOne(user)
     }
 
     @Patch(':id') //patch to get id and body to update some information

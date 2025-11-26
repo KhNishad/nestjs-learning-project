@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UsersService {
+
+    
     private users = [
         {
             id: 1,
@@ -82,6 +85,12 @@ export class UsersService {
 
     findOne(id:number) {
         return this.users.find(e => e.id == id)
+    }
+
+    createOne(body:CreateUserDto){
+        const lastId = this.users.length ? this.users[this.users.length - 1].id : 0;
+        this.users.push({id:lastId+1,...body});
+       
     }
 
 }
