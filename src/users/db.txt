@@ -1,0 +1,2 @@
+userName : KhNishad
+pass : nokia60.db
