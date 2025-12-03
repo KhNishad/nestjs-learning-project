@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString } from "class-validator"
+import { IsEnum, IsNotEmpty, IsNumber, IsString } from "class-validator"
 import { Category } from "../schemas/book.schema"
 
 export class CreateBookDto {
@@ -10,8 +10,8 @@ export class CreateBookDto {
     @IsNumber()
     @IsNotEmpty()
     price: number
-    @IsString()
     @IsNotEmpty()
+    @IsEnum(Category)
     category: Category
     noOfpages: number
 
