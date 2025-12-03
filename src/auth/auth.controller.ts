@@ -6,6 +6,7 @@ import { SignUpDto } from './dto/signUp.dto';
 export class AuthController {
      
     constructor(private authService:AuthService){}
+    
 
     @Post('/signUp')
     signUp(@Body() body:SignUpDto): Promise <{token :string}>{
