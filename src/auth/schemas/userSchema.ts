@@ -13,7 +13,7 @@ export class User {
     address : string
 
     @Prop({unique : [true, 'This Number Is Already Used']})
-    number : string
+    phone : string
 
     @Prop()
     image : string
