@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Book } from './schemas/book.schema';
 import * as mongoose from 'mongoose';
 import { Query  } from 'express-serve-static-core'
+import { User } from 'src/auth/schemas/userSchema';
 
 @Injectable()
 export class BooksService {
@@ -25,12 +26,12 @@ export class BooksService {
             $options:'i'
            }
         }:{}        
-        const books = await this.bookModel.find({...keyword}).limit(range).skip(skip)
+        const books = await this.bookModel.find({...keyword}).populate('user','_id name').limit(range).skip(skip)
         return books
     }
 
-    async createBook(book: Book): Promise<Book> {
-        const res = await this.bookModel.create(book)
+    async createBook(book: Book,user:User): Promise<Book> {
+        const res = await this.bookModel.create({...book,user:user._id})
         return res
     }
 

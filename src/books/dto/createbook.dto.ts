@@ -1,5 +1,6 @@
-import { IsEnum, IsNotEmpty, IsNumber, IsString } from "class-validator"
+import { IsEmpty, IsEnum, IsNotEmpty, IsNumber, IsString } from "class-validator"
 import { Category } from "../schemas/book.schema"
+import { User } from "src/auth/schemas/userSchema"
 
 export class CreateBookDto {
     @IsString()
@@ -14,5 +15,8 @@ export class CreateBookDto {
     @IsEnum(Category)
     category: Category
     noOfpages: number
+    
+    @IsEmpty()
+    user:User
 
 }
