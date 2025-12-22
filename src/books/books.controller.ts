@@ -5,6 +5,8 @@ import { CreateBookDto } from './dto/createbook.dto';
 import { UpdateBookDto } from './dto/updateBook.dto';
 import type  { Query as ExpressQuery } from 'express-serve-static-core'
 import { AuthGuard } from '@nestjs/passport';
+import { Roles } from 'src/auth/roles.decorator';
+import { RolesGuard } from 'src/auth/roles.guard';
 
 @Controller('books')
 export class BooksController {
@@ -16,9 +18,9 @@ export class BooksController {
     }
 
     @Post('/create')
-    @UseGuards(AuthGuard())
+    @Roles('admin')
+    @UseGuards(AuthGuard(),RolesGuard)
     async createBook(@Body(ValidationPipe) body: CreateBookDto,@Req() req): Promise<Book> {
-        console.log(req)
         return this.bookService.createBook(body,req.user)
     }
 

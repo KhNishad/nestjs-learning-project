@@ -20,7 +20,7 @@ export class AuthService {
     ) { }
 
     async signUp(dto: SignUpDto) {
-        const { name, phone, password, address, image } = dto
+        const { name, phone, password, address, image, role } = dto
 
         const hashedPass = await bcrypt.hash(password, 10)
 
@@ -29,10 +29,11 @@ export class AuthService {
             password: hashedPass,
             phone,
             address,
-            image
+            image,
+            role
         })
 
-        const token = this.jwtService.sign({ id: user?._id })
+        const token = this.jwtService.sign({ id: user?._id, role: user.role, })
         return { token }
 
     }
@@ -48,7 +49,7 @@ export class AuthService {
         if (!matchPass) throw new UnauthorizedException('Email or password is not right')
 
 
-        const token = this.jwtService.sign({ id: user?._id })
+        const token = this.jwtService.sign({ id: user?._id, role: user.role, })
         return { token }
     }
 
