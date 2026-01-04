@@ -8,6 +8,7 @@ export class CreateBookDto {
     title: string
     description: string
     author: string
+    image: string
     @IsNumber()
     @IsNotEmpty()
     price: number

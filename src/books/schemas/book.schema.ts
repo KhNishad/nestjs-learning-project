@@ -33,9 +33,12 @@ export class Book {
     category: Category
 
     @Prop()
+    image: string
+
+    @Prop()
     noOfpages: number
 
-    @Prop({type:mongoose.Schema.Types.ObjectId,ref:'User'})
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
     user: User
 
 }
