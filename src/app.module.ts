@@ -6,9 +6,16 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { BooksModule } from './books/books.module';
 import { AuthModule } from './auth/auth.module';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
-  imports: [UsersModule,  ConfigModule.forRoot({
+
+  imports: [ThrottlerModule.forRoot([
+    {
+      ttl:2000,
+      limit:3
+    }
+  ]), UsersModule,  ConfigModule.forRoot({
     envFilePath:'.env',
     isGlobal:true
   }),MongooseModule.forRoot(process.env.MONGO_URI!), BooksModule, AuthModule],
